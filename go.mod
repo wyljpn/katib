@@ -32,6 +32,7 @@ require (
 	k8s.io/kube-openapi v0.0.0-20210216185858-15cd8face8d6
 	k8s.io/utils v0.0.0-20210111153108-fddb29f9d009
 	sigs.k8s.io/controller-runtime v0.8.2
+
 )
 
 require (
@@ -56,7 +57,9 @@ require (
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.4.2-0.20190924003213-a8608b5b67c7 // indirect
 	github.com/docker/docker-credential-helpers v0.6.3 // indirect
+	github.com/docker/libcontainer v2.2.1+incompatible // indirect
 	github.com/emicklei/go-restful v2.9.5+incompatible // indirect
+	github.com/emicklei/go-restful/v3 v3.8.0 // indirect
 	github.com/evanphx/json-patch v4.9.0+incompatible // indirect
 	github.com/form3tech-oss/jwt-go v3.2.2+incompatible // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
@@ -128,6 +131,8 @@ require (
 )
 
 replace (
+	github.com/docker/docker => github.com/docker/docker v1.6.0
+	github.com/emicklei/go-restful => github.com/emicklei/go-restful/v3 v3.7.4
 	k8s.io/api => k8s.io/api v0.20.4
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.20.4
 	k8s.io/apimachinery => k8s.io/apimachinery v0.20.4

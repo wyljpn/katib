@@ -1,5 +1,28 @@
+# 20220630 Yulong
+# katib-controller
+# Golang in golang:alpine is 1.18.3
+
 # Build the Katib controller.
-FROM golang:alpine AS build-env
+#FROM golang:alpine AS build-env
+FROM alpine:latest AS build-env
+
+# Install Go
+ARG GOLANG_VERSION=1.18.3
+
+RUN apk update && apk add go gcc bash musl-dev openssl-dev ca-certificates && update-ca-certificates
+
+RUN wget https://dl.google.com/go/go$GOLANG_VERSION.src.tar.gz && tar -C /usr/local -xzf go$GOLANG_VERSION.src.tar.gz
+
+RUN cd /usr/local/go/src && ./make.bash
+
+ENV PATH=$PATH:/usr/local/go/bin
+
+RUN rm go$GOLANG_VERSION.src.tar.gz
+
+#we delete the apk installed version to avoid conflict
+RUN apk del go
+
+RUN go version
 
 WORKDIR /go/src/github.com/kubeflow/katib
 
@@ -22,7 +45,7 @@ RUN if [ "$(uname -m)" = "ppc64le" ]; then \
     fi
 
 # Copy the controller-manager into a thin image.
-FROM alpine:3.7
+FROM alpine:latest
 WORKDIR /app
 COPY --from=build-env /go/src/github.com/kubeflow/katib/katib-controller .
 ENTRYPOINT ["./katib-controller"]
